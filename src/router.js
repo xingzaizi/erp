@@ -1,25 +1,45 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from './views/Home.vue'
+
+import basicrouter from '@/router/basicRouter.js'
+import procurementRouter from '@/router/procurementRouter.js'
+import salesManagementRouter from '@/router/salesManagementRouter.js'
+import repertoryRouter from '@/router/repertoryRouter.js'
+//import accountRouter from '@/router/accountRouter.js' 账款管理
 
 Vue.use(Router)
 
-export default new Router({
-  mode: 'history',
-  base: process.env.BASE_URL,
-  routes: [
-    {
-      path: '/',
-      name: 'home',
-      component: Home
-    },
-    {
-      path: '/about',
-      name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import(/* webpackChunkName: "about" */ './views/About.vue')
-    }
-  ]
+export const constantRoutes = [
+  {
+    path: '/',
+    name: 'index',
+    component: () => import('@/views/home/index.vue'),
+  },
+  {
+    path: '/login',
+    name: 'login',
+    component: () => import('@/views/login/login.vue')
+  },
+  basicrouter,//共用资料
+  procurementRouter,//采购管理
+  salesManagementRouter,//销售管理
+  repertoryRouter,//库存管理
+  //accountRouter,//账款管理
+]
+
+//移除url上的#锚链接
+const createRouter = () => new Router({
+  mode: 'history', // require service support
+  scrollBehavior: () => ({ y: 0 }),
+  routes: constantRoutes
 })
+
+const router = createRouter()
+
+export function resetRouter() {
+  const newRouter = createRouter()
+  router.matcher = newRouter.matcher // reset router
+}
+
+//全局路由对象
+export default router

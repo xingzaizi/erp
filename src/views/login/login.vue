@@ -1,0 +1,100 @@
+<template>
+  <div>
+  </div>
+</template>
+
+<script>
+//这里可以导入其他文件（比如：组件，工具js，第三方插件js，json文件，图片文件等等）
+//例如：import 《组件名称》 from '《组件路径》';
+
+
+export default {
+  //import引入的组件需要注入到对象中才能使用
+  components: {},
+  data() {
+    //这里存放数据
+    return {};
+  },
+  //监听属性 类似于data概念
+  computed: {},
+  //监控data中的数据变化
+  watch: {},
+  //方法集合
+  methods: {},
+  //生命周期 - 创建完成（可以访问当前this实例）
+  created() {},
+  //生命周期 - 挂载完成（可以访问DOM元素）
+  mounted() {}
+};
+</script>
+<style  scoped>
+/* @import "../../assets/login/css/style.css"; */
+/*@import url(); 引入公共css类*/
+ul li {
+  font-size: 30px;
+  color: #2ec0f6;
+}
+.tyg-div {
+  z-index: -1000;
+  float: left;
+  position: absolute;
+  left: 5%;
+  top: 20%;
+}
+.tyg-p {
+  font-size: 14px;
+  font-family: "microsoft yahei";
+  position: absolute;
+  top: 135px;
+  left: 60px;
+}
+.tyg-div-denglv {
+  z-index: 1000;
+  float: right;
+  position: absolute;
+  right: 3%;
+  top: 10%;
+}
+.tyg-div-form {
+  background-color: #23305a;
+  width: 300px;
+  height: auto;
+  margin: 120px auto 0 auto;
+  color: #2ec0f6;
+}
+.tyg-div-form form {
+  padding: 10px;
+}
+.tyg-div-form form input[type="text"] {
+  width: 270px;
+  height: 30px;
+  margin: 25px 10px 0px 0px;
+}
+.tyg-div-form form button {
+  cursor: pointer;
+  width: 270px;
+  height: 44px;
+  margin-top: 25px;
+  padding: 0;
+  background: #2ec0f6;
+  -moz-border-radius: 6px;
+  -webkit-border-radius: 6px;
+  border-radius: 6px;
+  border: 1px solid #2ec0f6;
+  -moz-box-shadow: 0 15px 30px 0 rgba(255, 255, 255, 0.25) inset,
+    0 2px 7px 0 rgba(0, 0, 0, 0.2);
+  -webkit-box-shadow: 0 15px 30px 0 rgba(255, 255, 255, 0.25) inset,
+    0 2px 7px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 0 15px 30px 0 rgba(255, 255, 255, 0.25) inset,
+    0 2px 7px 0 rgba(0, 0, 0, 0.2);
+  font-family: "PT Sans", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: #fff;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  -o-transition: all 0.2s;
+  -moz-transition: all 0.2s;
+  -webkit-transition: all 0.2s;
+  -ms-transition: all 0.2s;
+}
+</style>
