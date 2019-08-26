@@ -1,10 +1,10 @@
 <template>
-<!-- 预付冲款 -->
+<!-- 应付冲款 -->
   <div>
 
     <el-card class="box-card">
       <div slot="header" class="clearfix">
-        <span class="el-icon-star-on">应付冲款单(预付冲款)</span>
+        <span class="el-icon-star-on">应付冲款单(应付冲款)</span>
           <div style="margin-left: 1100px">
             <el-button type="info" plain>返回</el-button>
 
@@ -147,7 +147,6 @@
    
 <template slot="title" ><i class="el-icon-s-grid"></i>功能</template>
     <el-menu-item index="1-1" @click="open">载入单币别账款</el-menu-item>
-    <el-menu-item index="1-2">载入多币别账款</el-menu-item>
   </el-submenu>
  
  <el-submenu index="2">
