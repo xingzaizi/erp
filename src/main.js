@@ -19,6 +19,14 @@ Vue.prototype.$jquery=jquery
 
 Vue.prototype.$ajax=ajax
 
+//cors
+// var cors=require('cors');
+// Vue.use(cors({
+//     origin:['http://localhost:8080'],  //指定接收的地址
+//     methods:['GET','POST'],  //指定接收的请求类型
+//     alloweHeaders:['Content-Type','Authorization']  //指定header
+// }))
+
 new Vue({
   router,
   store,
