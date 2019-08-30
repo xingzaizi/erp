@@ -11,21 +11,28 @@
     >
       <h3 class="title">ERP系统登录</h3>
       <el-form-item prop="username">
-        <el-input type="text" v-model="ruleForm2.username" auto-complete="off" placeholder="用户名"></el-input>
+        <el-input
+          type="text"
+          v-model="ruleForm2.username"
+          auto-complete="off"
+          placeholder="用户名"
+          name="username"
+        ></el-input>
       </el-form-item>
       <el-form-item prop="password">
-        <el-input type="password" v-model="ruleForm2.password" auto-complete="off" placeholder="密码"></el-input>
+        <el-input
+          type="password"
+          v-model="ruleForm2.password"
+          auto-complete="off"
+          placeholder="密码"
+          name="password"
+        ></el-input>
       </el-form-item>
       <el-checkbox v-model="checked" class="rememberme">记住密码</el-checkbox>
       <el-form-item style="width:100%;">
         <el-button type="primary" style="width:100%;" @click="handleSubmit" :loading="logining">登录</el-button>
       </el-form-item>
     </el-form>
-    <form action="http://127.0.0.1:8080/login" method="post">
-      <input type="text" name="username" v-model="ruleForm2.username"/>
-      <input type="text" name="password" v-model="ruleForm2.password"/>
-      <input type="submit" />
-    </form>
   </div>
 </template>
 
@@ -53,18 +60,53 @@ export default {
         //如果所有的规则都满足条件则跳转后台APi登录url
         if (valid) {
           this.logining = true;
-          this.$ajax
-            .post(`login?userName=${this.ruleForm2.username}&password=${this.ruleForm2.password}`)
+          this.$ajax({
+            url: "/login",
+            method: "post",
+            data: {
+              username: this.ruleForm2.username,
+              password: this.ruleForm2.password
+            },
+            //设置ajax提交的方式 按form表单提交
+            transformRequest: [
+              function(data) {
+                // Do whatever you want to transform the data
+                let ret = "";
+                for (let it in data) {
+                  ret +=
+                    encodeURIComponent(it) +
+                    "=" +
+                    encodeURIComponent(data[it]) +
+                    "&";
+                }
+                return ret;
+              }
+            ],
+            headers: {
+              "Content-Type": "application/x-www-form-urlencoded"
+            }
+          })
             .then(resp => {
+              console.log("登录成功后的相应数据===>>>" + JSON.stringify(resp));
+              if (resp == undefined) {
+                this.$message({
+                  showClose: true,
+                  message: "用户名或密码错误",
+                  type: "error"
+                });
+              } else {
+                this.$message({
+                  showClose: true,
+                  message: "登录成功",
+                  type: "success",
+                });
+                this.$router.push({ path: "/" });
+              }
               this.logining = false;
-              this.$alert("登陆成功", "info", {
-                confirmButtonText: "ok"
-              });
-              this.$router.push({ path: "/" });
             })
             .catch(e => {
               this.logining = false;
-              console.log(e)
+              console.log(e);
               alert(e.message);
             });
         } else {
