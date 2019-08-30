@@ -33,7 +33,7 @@
       <el-form-item>
         <el-button type="primary" @click="onSubmit">查询</el-button>
       </el-form-item>
-      <el-button type="success">添加采购发票</el-button>
+      <el-button type="success" >添加采购发票</el-button>
     </el-form>
 
     <el-table

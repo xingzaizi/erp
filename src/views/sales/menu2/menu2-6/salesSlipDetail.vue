@@ -229,7 +229,8 @@
             <template slot="title">
               <i class="el-icon-s-grid"></i>转单
             </template>
-            <el-menu-item index="2-1">销售订单转入</el-menu-item>
+            
+            <el-menu-item index="2-1"><el-button type="text" @click="dialogVisible = true">销售订单转入</el-button></el-menu-item>
             <el-menu-item index="2-2">转销售出库</el-menu-item>
           </el-submenu>
 
@@ -238,12 +239,170 @@
               <i class="el-icon-s-grid"></i>功能
             </template>
             <el-menu-item index="3-1">批次变更单价</el-menu-item>
-            <el-menu-item index="3-2">发票清单维护</el-menu-item>
-            <el-menu-item index="3-3">生成发票内容</el-menu-item>
+            
+            <el-menu-item index="3-2"><el-button type="text" @click="qingVisible = true">发票清单维护</el-button></el-menu-item>
+            <el-menu-item index="3-3" @click="GenerateInvoiceContent">生成发票内容</el-menu-item>
             <el-menu-item index="3-4">核对状态切换</el-menu-item>
           </el-submenu>
         </el-menu>
       </div>
+        <!-- 发票清单维护小窗口 -->
+<el-dialog title="销售发票清单维护" :visible.sync="qingVisible">
+   <!-- 销售入库单内嵌套窗口 -->
+     <el-dialog
+      width="30%"
+      title="单选--销售入库单"
+      :visible.sync="innerVisible1"
+      append-to-body>
+      <el-button>取回</el-button>
+       <el-table
+      :data="tableData"
+      style="width: 100%"
+      :default-sort="{prop: 'date', order: 'descending'}"
+    ><el-table-column prop="name" label="" sortable width="130" type="selection"></el-table-column>
+      <el-table-column prop="date" label="(单据号码)" sortable width="130"></el-table-column>
+      <el-table-column prop="name" label="(单据日期)" sortable width="130"></el-table-column>
+    </el-table>
+    </el-dialog>
+    <!-- 销售退货单内嵌套窗口 -->
+     <el-dialog
+      width="30%"
+      title="单选--销售退货单"
+      :visible.sync="innerVisible2"
+      append-to-body>
+      <el-button>取回</el-button>
+       <el-table
+      :data="tableData"
+      style="width: 100%"
+      :default-sort="{prop: 'date', order: 'descending'}"
+    ><el-table-column prop="name" label="" sortable width="130" type="selection"></el-table-column>
+      <el-table-column prop="date" label="(单据号码)" sortable width="130"></el-table-column>
+      <el-table-column prop="name" label="(单据日期)" sortable width="130"></el-table-column>
+    </el-table>
+    </el-dialog>
+    <!-- 销售折让确认单内嵌套窗口 -->
+     <el-dialog
+      width="30%"
+      title="单选--销售折让确认单"
+      :visible.sync="innerVisible3"
+      append-to-body>
+      <el-button>取回</el-button>
+       <el-table
+      :data="tableData"
+      style="width: 100%"
+      :default-sort="{prop: 'date', order: 'descending'}"
+    ><el-table-column prop="name" label="" sortable width="130" type="selection"></el-table-column>
+      <el-table-column prop="date" label="(单据号码)" sortable width="130"></el-table-column>
+      <el-table-column prop="name" label="(单据日期)" sortable width="130"></el-table-column>
+    </el-table>
+    </el-dialog>
+   <el-card class="box-card">
+      销售入库单<el-input v-model="input" placeholder="请输入内容" style="width:150px"></el-input>-
+        <el-input v-model="input" placeholder="请输入内容" style="width:150px"></el-input>
+        <el-button class="el-icon-view" style="width:60px"></el-button>
+          <el-button type="primary" @click="innerVisible = true" class="el-icon-zoom-in" style="width:60px"></el-button> <br><br>
+         销售退货单<el-input v-model="input" placeholder="请输入内容" style="width:150px"></el-input>-
+        <el-input v-model="input" placeholder="请输入内容" style="width:150px"></el-input>
+        <el-button class="el-icon-view" style="width:60px"></el-button>
+          <el-button type="primary" @click="innerVisible = true" class="el-icon-zoom-in" style="width:60px"></el-button><br><br>
+          折让确认单<el-input v-model="input" placeholder="请输入内容" style="width:150px"></el-input>-
+        <el-input v-model="input" placeholder="请输入内容" style="width:150px"></el-input>
+        <el-button class="el-icon-view" style="width:60px"></el-button>
+          <el-button type="primary" @click="innerVisible = true" class="el-icon-zoom-in" style="width:60px"></el-button>
+        </el-card>
+ <el-table
+      :data="tableData"
+      style="width: 100%"
+      :default-sort="{prop: 'date', order: 'descending'}"
+    >
+    
+    <el-table-column prop="name" label="" sortable width="130" type="selection"></el-table-column>
+      <el-table-column prop="name" label="栏号" sortable width="130"></el-table-column>
+      <el-table-column prop="date" label="(来源单别)" sortable width="130"></el-table-column>
+      <el-table-column prop="name" label="来源单号" sortable width="130"></el-table-column>
+      <el-table-column prop="name" label="物料编码" sortable width="130"></el-table-column>
+      <el-table-column prop="name" label="(物料名称)" sortable width="130"></el-table-column>
+
+    <el-table-column prop="name" label="(规格型号)" sortable width="130"></el-table-column>
+ <el-table-column prop="date" label="(单位)" sortable width="130"></el-table-column>
+ <el-table-column prop="date" label="数量" sortable width="130"></el-table-column>
+      <el-table-column prop="date" label="单价" sortable width="130"></el-table-column>
+        <el-table-column prop="date" label="金额" sortable width="130"></el-table-column>
+        <el-table-column prop="date" label="税率%" sortable width="130"></el-table-column>
+        <el-table-column prop="date" label="税额" sortable width="130"></el-table-column>
+        <el-table-column prop="date" label="(含税金额)" sortable width="130"></el-table-column>
+      <el-table-column prop="name" label="分录备注" sortable width="130"></el-table-column>
+      
+    </el-table>
+
+           <span slot="footer" class="dialog-footer">
+          <el-button @click="dialogVisible = false">载 入</el-button>
+          <el-button type="primary" @click="dialogVisible = false">取 回</el-button>
+        </span>
+  </el-dialog>
+
+
+      <!-- 销售订单小窗口 -->
+      <el-dialog title="销售订单转采购发票" :visible.sync="dialogVisible" width="50%" :before-close="handleClose">
+         <el-dialog
+      width="30%"
+      title="多选--销售订单"
+      :visible.sync="innerVisible"
+      append-to-body>
+      <el-button>取回</el-button>
+       <el-table
+      :data="tableData"
+      style="width: 100%"
+      :default-sort="{prop: 'date', order: 'descending'}"
+    >
+    <el-table-column prop="name" label="" sortable width="130" type="selection"></el-table-column>
+      <el-table-column prop="date" label="(单据号码)" sortable width="130"></el-table-column>
+      <el-table-column prop="name" label="(单据日期)" sortable width="130"></el-table-column>
+    </el-table>
+    </el-dialog>
+
+        <el-card class="box-card">
+  <div class="block" >    
+    <span class="demonstration">日期区间</span>
+    <el-date-picker
+    style="width:500px"
+      v-model="value6"
+      type="daterange"
+      range-separator="至"
+      start-placeholder="开始日期"
+      end-placeholder="结束日期">
+    </el-date-picker>
+     <el-button>载入资料</el-button>
+  </div>
+
+  单据区间<el-input v-model="input" placeholder="请输入内容" style="width:245px"></el-input>-
+        <el-input v-model="input" placeholder="请输入内容" style="width:245px"></el-input>
+         <el-button class="el-icon-view" style="width:60px"></el-button>
+          <el-button type="primary" @click="innerVisible = true" class="el-icon-zoom-in" style="width:60px"></el-button>
+
+        </el-card>
+  <el-table
+      :data="tableData"
+      style="width: 100%"
+      :default-sort="{prop: 'date', order: 'descending'}"
+    > 
+    <el-table-column prop="name"   width="130" type="selection"></el-table-column>
+      <el-table-column prop="name" label="转单数量"  width="130"></el-table-column>
+      <el-table-column prop="date" label="(单据号码)"  width="130"></el-table-column>
+      <el-table-column prop="name" label="(单据日期)"  width="130"></el-table-column>
+      <el-table-column prop="name" label="(物料编码)"  width="130"></el-table-column>
+      <el-table-column prop="name" label="(物料名称)"  width="130"></el-table-column>
+      <el-table-column prop="date" label="(单价)"  width="130"></el-table-column>
+        <el-table-column prop="date" label="(数量)"  width="130"></el-table-column>
+      <el-table-column prop="name" label="(预入库日)"  width="130"></el-table-column>
+      
+    </el-table>
+ 
+        <span slot="footer" class="dialog-footer">
+          <el-button @click="dialogVisible = false">取 消</el-button>
+          <el-button type="primary" @click="dialogVisible = false">取 回</el-button>
+        </span>
+      </el-dialog>
     </el-card>
   </div>
 </template>
@@ -253,6 +412,13 @@
 export default {
   data() {
     return {
+        dialogVisible: false,
+       outerVisible: false,
+         innerVisible1: false,
+        innerVisible2: false,
+        innerVisible3: false,
+        innerVisible: false,
+        qingVisible: false,
       ruleForm: {
         name: "",
         region: "",
@@ -316,6 +482,9 @@ export default {
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();
+    },
+    GenerateInvoiceContent(){
+      alert("生成发票内容")
     }
   }
 };
