@@ -135,6 +135,7 @@ const basicRouter = {
       name: 'menu2',
       meta: { title: '物料资料', permissions: '这里是权限' },
       components: {
+        warehouseSetting:() => import('@/views/basic/menu2/menu2-1/cangkuchaxun.vue'),
         measurementUnitSetting: () => import('@/views/basic/menu2/menu2-3/jiliangchaxun.vue'),
         materialCategorySetting: () => import('@/views/basic/menu2/menu2-2/wuliaoleibiechaxun.vue'),
         materialMasterFileSetting: () => import('@/views/basic/menu2/menu2-4/wuliaoweihuchaxun.vue'),
@@ -148,7 +149,7 @@ const basicRouter = {
       children: [
         {
           path: '/basic/menu2/menu2-1',
-          component: () => import('@/views/basic/menu1/menu1-1/employees.vue'),
+          component: () => import('@/views/basic/menu2/menu2-1/cangkuchaxun.vue'),
           name: 'warehouseSetting',
           meta: { title: '仓库设定' }
         },
