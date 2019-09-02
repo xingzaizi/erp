@@ -15,12 +15,13 @@
                         </el-pagination>
                     </el-row>
                     <el-row>
-                        <el-button type="primary" @click="add">添加</el-button>
-                        <el-button type="success" v-show="forbidden!=true">保存</el-button>
-                        <el-button type="warning" @click="upd">修改</el-button>
-                        <el-button type="danger" @click="del">删除</el-button>
-                        <el-button type="danger" v-show="forbidden!=true">放弃</el-button>
-                        <el-button type="primary" v-show="forbidden==true">审核</el-button>
+                        <el-button type="primary" @click="add" v-show="this.forbidden==true">添加</el-button>
+                        <el-button type="success" @click="preservation" v-show="this.forbidden!=true">保存</el-button>
+                        <el-button type="warning" @click="upd" v-show="this.forbidden==true">修改</el-button>
+                        <el-button type="danger" @click="del" v-show="this.forbidden==true">删除</el-button>
+                        <el-button type="primary" @click="reload" v-show="this.forbidden==true">刷新</el-button>
+                        <el-button type="danger" @click="giveUp" v-show="this.forbidden!=true">放弃</el-button>
+                        <el-button type="primary" @click="toExamine" v-show="this.forbidden==true">审核</el-button>
                     </el-row>
                 </div>
                 <el-row :gutter="20">
@@ -212,7 +213,7 @@
                             <el-table-column label="(批号)">
                                 <el-checkbox></el-checkbox>
                             </el-table-column>
-                            <el-table-column label="(物料组合)">
+                            <el-table-column label="赠品">
                                 <el-checkbox></el-checkbox>
                             </el-table-column>
                             <el-table-column label="(发票明细)">
@@ -548,11 +549,36 @@ export default {
         },
         add() {
             this.forbidden = false;
-            // this.$jquery("input").val("")
+            this.st = "(新增中...)";
             this.temp = {};
+        },
+        preservation(){
+
+        },
+        giveUp() {
+            this.$confirm('是否确定放弃?', '销售出库单', {
+                confirmButtonText: '确定',
+                cancelButtonText: '取消',
+                type: 'warning'
+            }).then(() => {
+                this.st = "(正在取消..)";
+                 this.loading = true;
+                setTimeout(() => {
+                    this.loading = false;
+                    this.forbidden = true;
+                    this.st = "";
+                    this.findByPage(1, 1);
+                }, 2000);
+            }).catch(() => {
+                this.$message({
+                    type: 'info',
+                    message: '已取消放弃'
+                });
+            });
         },
         upd() {
             this.forbidden = false;
+            this.st = "(修改中...)";
         },
         del() {
             this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
@@ -570,11 +596,20 @@ export default {
                     message: '已取消删除'
                 });
             });
+        },
+        reload(){
+
+        },
+        toExamine(){
+
         }
     },
     mounted() {
+        this.loading = true;
         setTimeout(() => {
             this.loading = false;
+            this.forbidden = true;
+            this.st = "";
             this.findByPage(1, 1);
         }, 2000);
     }
