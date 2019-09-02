@@ -87,7 +87,7 @@ export default {
             }
           })
             .then(resp => {
-              console.log("登录成功后的相应数据===>>>" + JSON.stringify(resp));
+              console.log("登录成功...");
               if (resp == undefined) {
                 this.$message({
                   showClose: true,
@@ -95,12 +95,15 @@ export default {
                   type: "error"
                 });
               } else {
+                // console.log(resp.data)//用户对象的所有信息 用户、角色、资源
+                this.$store.commit('Syn_SET_USER',resp.data)//同步将用户信息存入vuex
                 this.$message({
                   showClose: true,
                   message: "登录成功",
                   type: "success",
                 });
                 this.$router.push({ path: "/" });
+                
               }
               this.logining = false;
             })
