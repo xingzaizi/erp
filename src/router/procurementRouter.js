@@ -53,6 +53,7 @@ const procurementRouter = {
                 advanceCharge: () => import('@/views/procurement/menu2/menu2-8/advanceCharge.vue'),//
                 advancePayment: () => import('@/views/procurement/menu2/menu2-8/advancePayment.vue'),//
                 prepaidatMoney: () => import('@/views/procurement/menu2/menu2-8/prepaidatMoney.vue'),//
+                purchaseReceiptDetail:() => import('@/views/procurement/menu2/menu2-4/purchaseReceiptDetail.vue'),//
             },
             children: [
                 {
@@ -124,6 +125,12 @@ const procurementRouter = {
                 {
                     path: '/procurement/menu2/menu2-8/prepaid',
                     name: 'prepaidatMoney',
+                    hidden: true
+                },
+                //自定义查入库详细
+                {
+                    path: '/procurement/menu2/menu2-4/detail/:danhao',
+                    name: 'purchaseReceiptDetail',
                     hidden: true
                 }
             ]
