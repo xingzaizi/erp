@@ -1,35 +1,20 @@
 <template>
   <div>
     <el-container>
-      <el-header style="background:white;height:5vh;border-bottom:1px solid #e6e6e6;">
-        <el-row style>
-          <el-col :span="21" style>
-            <div
-              style="padding-top:12px;border-right:1px solid #e6e6e6;height:36px;float:left"
-              :style="{width:(isCollapse?'44px':'157px')}"
-            >
-            <div style="overflow: hidden;height:20px;">
-              ERP管理系统
-            </div>
-            </div>
-            <div
-              style="width: 60px; cursor: pointer;height:100%;margin:10px 0px 0px 8px;float:left"
-              @click.prevent="toggleSideBar"
-            >
-              <i v-show="!isCollapse" class="el-icon-d-arrow-left"></i>
-              <i v-show="isCollapse" class="el-icon-d-arrow-right"></i>
-            </div>
+      <el-header style="background:#eee;height:5vh">
+        <el-row>
+          <el-col :span="3">
+            <el-radio-group v-model="isCollapse" style="margin-bottom: 20px;padding-top:3px">
+              <el-radio-button :label="false">展开</el-radio-button>
+              <el-radio-button :label="true">收起</el-radio-button>
+            </el-radio-group>
           </el-col>
-          <el-col :span="3" style="font-size:24px;padding-top:5px">
-            
-            <el-button type="primary" icon="el-icon-user-solid">{{this.$store.state.user.uname}}</el-button>
-            <el-button type="danger" icon="el-icon-lock" circle></el-button>
-            <el-button type="primary" icon="el-icon-platform-eleme" circle></el-button>
-          </el-col>
+          <el-col :span="12">中间部分</el-col>
+          <el-col :span="6">欢迎</el-col>
         </el-row>
       </el-header>
       <el-container>
-        <el-aside :style="{width:(isCollapse?'auto':'178px')}">
+        <el-aside :style="{width:(isCollapse?'auto':'200px')}">
           <el-row class="tac">
             <el-col :span="24">
               <el-menu
@@ -41,7 +26,6 @@
                 style="height:90vh"
                 :router="true"
               >
-                <div></div>
                 <template v-for="(item,index) in menuList">
                   <!-- 三级菜单 -->
                   <el-submenu :index="index+''" :key="item.path">
@@ -89,7 +73,6 @@
             type="card"
             closable
             @tab-remove="removeTab"
-            :before-leave="activeName"
           >
             <template v-if="editableTabs.length==0">
               <div>
@@ -135,9 +118,6 @@ export default {
   watch: {},
   //方法集合
   methods: {
-    toggleSideBar() {
-      this.isCollapse = !this.isCollapse;
-    },
     handleOpen(key, keyPath) {
       console.log(key, keyPath);
     },
@@ -160,9 +140,6 @@ export default {
     removeTab(targetName) {
       let tabs = this.editableTabs;
       let activeName = this.editableTabsValue;
-      //如果要删除的节点是当前选中的
-      alert("选中的" + activeName);
-      alert("将要删除的" + targetName);
       if (activeName === targetName) {
         tabs.forEach((tab, index) => {
           if (tab.name === targetName) {
@@ -173,32 +150,13 @@ export default {
           }
         });
       }
-      this.$store.commit("removeTab", targetName); //更新浏览器缓存
-
-      this.editableTabs = tabs.filter(tab => tab.name !== targetName);
-    },
-    activeName(activeName, oldActiveName) {
       this.editableTabsValue = activeName;
-      sessionStorage.setItem(`editableTabsValue`, activeName);
-      // alert(activeName+"==="+oldActiveName)
+      this.editableTabs = tabs.filter(tab => tab.name !== targetName);
     }
   },
   created() {
-    // alert(sessionStorage.getItem(`user`));
-    let user = this.$store.state.user;
-    if (JSON.stringify(user) == "{}") {
-      //store里的user为空
-      this.$store.commit(
-        "Syn_SET_USER",
-        JSON.parse(sessionStorage.getItem(`user`))
-      ); //将浏览器缓存的用户信息存入vuex
-      user = this.$store.state.user;
-    }
-
-    console.log("index.vue 准备初始化动态路由...");
     //  获取路由
     // alert(JSON.stringify(this.$router.options))
-    // alert(JSON.stringify(this.$store.state.user))
     this.$router.options.routes.forEach(element => {
       if (element.meta) {
         console.log(element);

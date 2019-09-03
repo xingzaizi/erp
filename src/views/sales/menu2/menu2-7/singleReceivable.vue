@@ -11,7 +11,8 @@
       <el-form-item label="应收冲款类型">
         <el-select v-model="formInline.region" placeholder="应收冲款类型" style="width: 350px;">
           <el-option label="预收款" value="shanghai"></el-option>
-          <el-option label="应收冲款" value="beijing"></el-option>
+          <el-option label="收款冲款" value="beijing"></el-option>
+          <el-option label="预收冲应收" value="beijing"></el-option>
         </el-select>
       </el-form-item>
       <el-form-item label="活动时间">
@@ -27,8 +28,8 @@
         <el-button type="primary" @click="onSubmit">查询</el-button>
       </el-form-item>
       <el-button type="success" @click="advanceCharge">添加预收款</el-button>
-      <el-button type="warning" @click="advancePayment">添加应收冲款</el-button>
-      <!-- <el-button type="info" @click="prepaidatMoney">添加预收冲应收</el-button> -->
+      <el-button type="warning" @click="prepaidatMoney">添加收款冲款</el-button>
+      <el-button type="info" @click="advancePayment">添加预收冲应收</el-button>
     </el-form>
 
     <el-table
