@@ -48,12 +48,11 @@ const procurementRouter = {
                 purchaseReceipt: () => import('@/views/procurement/menu2/menu2-4/purchaseReceipt.vue'),//采购入库单
                 purchaseReturnOrder: () => import('@/views/procurement/menu2/menu2-5/purchaseReturnOrder.vue'),//采购退货单
                 purchaseInvoice: () => import('@/views/procurement/menu2/menu2-7/purchaseInvoice.vue'),//采购发票
-                purchaseInvoiceDetail:() => import('@/views/procurement/menu2/menu2-7/purchaseInvoiceDetail.vue'),//采购发票明细4
+                purchaseInvoiceDetail:() => import('@/views/procurement/menu2/menu2-7/purchaseInvoiceDetail.vue'),//采购发票明细
                 payThePaymentSlip: () => import('@/views/procurement/menu2/menu2-8/accountsZhu.vue'),//冲款单
                 advanceCharge: () => import('@/views/procurement/menu2/menu2-8/advanceCharge.vue'),//
                 advancePayment: () => import('@/views/procurement/menu2/menu2-8/advancePayment.vue'),//
                 prepaidatMoney: () => import('@/views/procurement/menu2/menu2-8/prepaidatMoney.vue'),//
-                purchaseReceiptDetail:() => import('@/views/procurement/menu2/menu2-4/purchaseReceiptDetail.vue'),//
             },
             children: [
                 {
@@ -107,11 +106,10 @@ const procurementRouter = {
                 //自定义添加修改页面路由 不进入左侧菜单栏
                 ,
                 {
-                    path: '/procurement/menu2/menu2-7/detail/:storageid',
+                    path: '/procurement/menu2/menu2-7/detail',
                     name: 'purchaseInvoiceDetail',
                     hidden: true
                 },
-               
                 //预付
                 {
                     path: '/procurement/menu2/menu2-8/charge',
@@ -126,12 +124,6 @@ const procurementRouter = {
                 {
                     path: '/procurement/menu2/menu2-8/prepaid',
                     name: 'prepaidatMoney',
-                    hidden: true
-                },
-                //自定义查入库详细
-                {
-                    path: '/procurement/menu2/menu2-4/detail/:danhao',
-                    name: 'purchaseReceiptDetail',
                     hidden: true
                 }
             ]

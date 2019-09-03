@@ -85,7 +85,6 @@ export default {
   },
   methods: {
     save() {
-      
       //添加一个元素到标签页数组
       this.$store.commit("addTab", {title:"添加部门",name:"saveDepartment"});
       //跳页面

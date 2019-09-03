@@ -41,16 +41,5 @@ export function resetRouter() {
   router.matcher = newRouter.matcher // reset router
 }
 
-//路由拦截器
-router.beforeEach((to, from, next) => {
-  if (!sessionStorage.getItem("user") && to.name !== 'login') {
-    next('/login')
-  } else {
-    next()
-  }
-})
-
-
-
 //全局路由对象
 export default router

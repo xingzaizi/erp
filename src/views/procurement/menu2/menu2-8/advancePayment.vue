@@ -1,10 +1,10 @@
 <template>
-    <!-- 应付冲款和预付冲应付 -->
+    <!-- 预付冲应付 -->
     <div>
 
     <el-card class="box-card">
       <div slot="header" class="clearfix">
-        <span class="el-icon-star-on">应付冲款单(应付冲款)</span>
+        <span class="el-icon-star-on">应付冲款单(预付冲应付)</span>
           <div style="margin-left: 1100px">
             <el-button type="info" plain>返回</el-button>
 
@@ -38,7 +38,7 @@
 
           <el-form-item label="结算方式一" prop="resource">
             <el-input v-model="ruleForm.resource" style="width:250px"></el-input>
-            <el-input v-model="ruleForm.resource" style="width:150px" ></el-input>
+            <el-input v-model="ruleForm.resource" style="width:150px" disabled></el-input>
           </el-form-item>
 
           <el-form-item label="单据号码" prop="resource">
@@ -47,7 +47,7 @@
 
           <el-form-item label="结算方式二" prop="delivery">
             <el-input v-model="ruleForm.resource" style="width:250px"></el-input>
-            <el-input v-model="ruleForm.resource" style="width:150px" ></el-input>
+            <el-input v-model="ruleForm.resource" style="width:150px" disabled></el-input>
           </el-form-item>
 
           <el-form-item label="币别" prop="delivery">
@@ -56,7 +56,7 @@
 
           <el-form-item label="结算方式三" prop="delivery">
             <el-input v-model="ruleForm.resource" style="width:250px"></el-input>
-            <el-input v-model="ruleForm.resource" style="width:150px" ></el-input>
+            <el-input v-model="ruleForm.resource" style="width:150px" disabled></el-input>
           </el-form-item>
 
           <el-form-item label="汇率" prop="delivery">
@@ -68,7 +68,7 @@
           </el-form-item>
 
           <el-form-item label="应付冲款类型" prop="region">
-            <el-input v-model="ruleForm.resource" style="width:400px" placeholder="应付冲款" disabled></el-input>
+            <el-input v-model="ruleForm.resource" style="width:400px" placeholder="预付冲应付" disabled></el-input>
           </el-form-item>
 
           <el-form-item label="终止帐月" required>
@@ -122,7 +122,7 @@
                     <el-table-column prop="date" label="(应付冲款单号)" width="200"></el-table-column>
                     <el-table-column prop="name" label="(来源别)" width="200"></el-table-column>
                     <el-table-column prop="address" label="(来源单号)" width="200"></el-table-column>
-                    <el-table-column prop="address" label="(预付余额)" width="200"></el-table-column>
+                    <el-table-column prop="address" label="(预付金额)" width="200"></el-table-column>
                     <el-table-column prop="address" label="(部门编号)" width="200"></el-table-column>
                     <el-table-column prop="address" label="(部门名称)" width="200"></el-table-column>
                     <el-table-column prop="address" label="取用预付金额" width="200"></el-table-column>
@@ -164,6 +164,7 @@
    
 <template slot="title" ><i class="el-icon-s-grid"></i>功能</template>
     <el-menu-item index="1-1">载入单币别账款</el-menu-item>
+    <el-menu-item index="1-2">载入多币别账款</el-menu-item>
     <el-menu-item index="1-3">载入预付</el-menu-item>
   </el-submenu>
  
