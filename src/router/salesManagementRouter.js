@@ -70,7 +70,7 @@ const salesManagementRouter = {
                     path: '/salesManagement/menu2/menu2-9',
                     component: () => import('@/views/sales/menu2/menu2-9/sellOrderList.vue'),
                     name: 'sellOrderList',
-                    meta: { title: '销售订单' }
+                    title: '销售订单'
                 },
                 {
                     path: '/salesManagement/menu2/menu2-4',
