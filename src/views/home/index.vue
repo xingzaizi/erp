@@ -23,12 +23,10 @@
             <el-button type="danger" icon="el-icon-lock" circle></el-button>
             <el-button type="primary" icon="el-icon-platform-eleme" circle></el-button>
           </el-col>
-          <el-col :span="12">中间部分</el-col>
-          <el-col :span="6">欢迎</el-col>
         </el-row>
       </el-header>
       <el-container>
-        <el-aside :style="{width:(isCollapse?'auto':'200px')}">
+        <el-aside :style="{width:(isCollapse?'auto':'178px')}">
           <el-row class="tac">
             <el-col :span="24">
               <el-menu
@@ -132,6 +130,9 @@ export default {
   watch: {},
   //方法集合
   methods: {
+    toggleSideBar(){
+      this.isCollapse=!this.isCollapse
+    },
     handleOpen(key, keyPath) {
       console.log(key, keyPath);
     },
@@ -193,19 +194,6 @@ export default {
     }
   },
   created() {
-    // alert(sessionStorage.getItem(`user`));
-<<<<<<< HEAD
-    // let user = this.$store.state.user;
-    // if (JSON.stringify(user) == "{}") {
-    //   //store里的user为空
-    //   this.$store.commit(
-    //     "Syn_SET_USER",
-    //     JSON.parse(sessionStorage.getItem(`user`))
-    //   ); //将浏览器缓存的用户信息存入vuex
-    //   user = this.$store.state.user;
-    // }
-
-=======
     let user = this.$store.state.user;
     if (JSON.stringify(user) == "{}") {
       //store里的user为空
@@ -215,7 +203,6 @@ export default {
       ); //将浏览器缓存的用户信息存入vuex
       user = this.$store.state.user;
     }
->>>>>>> e015a17cb95ebb835032c3c22b719d4b70cc16e7
     console.log("index.vue 准备初始化动态路由...");
     //  获取路由
     // alert(JSON.stringify(this.$router.options))
