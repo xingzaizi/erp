@@ -34,8 +34,9 @@ const salesManagementRouter = {
             name: 'menu2',
             title: '销售作业', 
             components: {
-                salesQuotation: () => import('@/views/sales/menu2/menu2-1/SalesOrder.vue'),
-                salesOrder: () => import('@/views/sales/menu2/menu2-2/SalesQuotation.vue'),
+                sellQuotationList: () => import('@/views/sales/menu2/menu2-8/sellQuotationList.vue'),
+                salesQuotation: () => import('@/views/sales/menu2/menu2-2/SalesQuotation.vue'),
+                salesOrder: () => import('@/views/sales/menu2/menu2-1/SalesOrder.vue'),
                 salesSlip: () => import('@/views/sales/menu2/menu2-6/salesSlip.vue'),
                 salesSlipDetail: () => import('@/views/sales/menu2/menu2-6/salesSlipDetail.vue'),
                 singleReceivable: () => import('@/views/sales/menu2/menu2-7/singleReceivable.vue'),
@@ -44,6 +45,7 @@ const salesManagementRouter = {
                 singleReceivableFlush:() => import('@/views/sales/menu2/menu2-7/singleReceivableFlush.vue'),
                 salesReleaseOrder:() => import('@/views/sales/menu2/menu2-3/sellingOutWarehouseReceipt.vue'),
                 salesReturnOrder:() => import('@/views/sales/menu2/menu2-4/salesReturn.vue'),
+                sellOrderList:() => import('@/views/sales/menu2/menu2-9/sellOrderList.vue'),
             },
             children: [
                 {
@@ -63,6 +65,12 @@ const salesManagementRouter = {
                     component: () => import('@/views/sales/menu2/menu2-3/sellingOutWarehouseReceipt.vue'),
                     name: 'salesReleaseOrder',
                     title: '销售出库单' 
+                },
+                {
+                    path: '/salesManagement/menu2/menu2-9',
+                    component: () => import('@/views/sales/menu2/menu2-9/sellOrderList.vue'),
+                    name: 'sellOrderList',
+                    meta: { title: '销售订单' }
                 },
                 {
                     path: '/salesManagement/menu2/menu2-4',

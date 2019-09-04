@@ -23,10 +23,12 @@
             <el-button type="danger" icon="el-icon-lock" circle></el-button>
             <el-button type="primary" icon="el-icon-platform-eleme" circle></el-button>
           </el-col>
+          <el-col :span="12">中间部分</el-col>
+          <el-col :span="6">欢迎</el-col>
         </el-row>
       </el-header>
       <el-container>
-        <el-aside :style="{width:(isCollapse?'auto':'178px')}">
+        <el-aside :style="{width:(isCollapse?'auto':'200px')}">
           <el-row class="tac">
             <el-col :span="24">
               <el-menu
@@ -38,7 +40,6 @@
                 style="height:90vh"
                 :router="true"
               >
-                <div></div>
                 <template v-for="(item,index) in menuList">
                   <!-- 三级菜单 -->
                   <el-submenu :index="index+''" :key="item.path">
@@ -86,7 +87,6 @@
             type="card"
             closable
             @tab-remove="removeTab"
-            :before-leave="activeName"
           >
             <template v-if="editableTabs.length==0">
               <div>
@@ -132,9 +132,6 @@ export default {
   watch: {},
   //方法集合
   methods: {
-    toggleSideBar() {
-      this.isCollapse = !this.isCollapse;
-    },
     handleOpen(key, keyPath) {
       console.log(key, keyPath);
     },
@@ -168,11 +165,6 @@ export default {
           }
         });
       }
-      this.$store.commit("removeTab", targetName); //更新浏览器缓存
-
-      this.editableTabs = tabs.filter(tab => tab.name !== targetName);
-    },
-    activeName(activeName, oldActiveName) {
       this.editableTabsValue = activeName;
       sessionStorage.setItem(`editableTabsValue`, activeName);
       // alert(activeName+"==="+oldActiveName)
@@ -214,7 +206,6 @@ export default {
     console.log("index.vue 准备初始化动态路由...");
     //  获取路由
     // alert(JSON.stringify(this.$router.options))
-    // alert(JSON.stringify(this.$store.state.user))
     this.$router.options.routes.forEach(element => {
       if (element.isMenu) {
         console.log(element);

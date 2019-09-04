@@ -147,7 +147,7 @@ const basicRouter = {
       children: [
         {
           path: '/basic/menu2/menu2-1',
-          component: () => import('@/views/basic/menu2/menu2-1/cangkuchaxun.vue'),
+          component: () => import('@/views/basic/menu1/menu1-1/employees.vue'),
           name: 'warehouseSetting',
           title: '仓库设定'
         },

@@ -104,11 +104,10 @@ const procurementRouter = {
                 //自定义添加修改页面路由 不进入左侧菜单栏
                 ,
                 {
-                    path: '/procurement/menu2/menu2-7/detail/:storageid',
+                    path: '/procurement/menu2/menu2-7/detail',
                     name: 'purchaseInvoiceDetail',
                     hidden: true
                 },
-
                 //预付
                 {
                     path: '/procurement/menu2/menu2-8/charge',

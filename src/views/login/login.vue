@@ -1,144 +1,100 @@
 <template>
-  <div class="login-container">
-    <el-form
-      :model="ruleForm2"
-      :rules="rules2"
-      status-icon
-      ref="ruleForm2"
-      label-position="left"
-      label-width="0px"
-      class="demo-ruleForm login-page"
-    >
-      <h3 class="title">ERP系统登录</h3>
-      <el-form-item prop="username">
-        <el-input
-          type="text"
-          v-model="ruleForm2.username"
-          auto-complete="off"
-          placeholder="用户名"
-          name="username"
-        ></el-input>
-      </el-form-item>
-      <el-form-item prop="password">
-        <el-input
-          type="password"
-          v-model="ruleForm2.password"
-          auto-complete="off"
-          placeholder="密码"
-          name="password"
-        ></el-input>
-      </el-form-item>
-      <el-checkbox v-model="checked" class="rememberme">记住密码</el-checkbox>
-      <el-form-item style="width:100%;">
-        <el-button type="primary" style="width:100%;" @click="handleSubmit" :loading="logining">登录</el-button>
-      </el-form-item>
-    </el-form>
+  <div>
   </div>
 </template>
 
 <script>
+//这里可以导入其他文件（比如：组件，工具js，第三方插件js，json文件，图片文件等等）
+//例如：import 《组件名称》 from '《组件路径》';
+
+
 export default {
+  //import引入的组件需要注入到对象中才能使用
+  components: {},
   data() {
-    return {
-      logining: false,
-      ruleForm2: {
-        username: "",
-        password: ""
-      },
-      rules2: {
-        username: [
-          { required: true, message: "请输入用户名", trigger: "blur" }
-        ],
-        password: [{ required: true, message: "请输入密码", trigger: "blur" }]
-      },
-      checked: false
-    };
+    //这里存放数据
+    return {};
   },
-  methods: {
-    handleSubmit(event) {
-      this.$refs.ruleForm2.validate(valid => {
-        //如果所有的规则都满足条件则跳转后台APi登录url
-        if (valid) {
-          this.logining = true;
-          this.$ajax({
-            url: "/login",
-            method: "post",
-            data: {
-              username: this.ruleForm2.username,
-              password: this.ruleForm2.password
-            },
-            //设置ajax提交的方式 按form表单提交
-            transformRequest: [
-              function(data) {
-                // Do whatever you want to transform the data
-                let ret = "";
-                for (let it in data) {
-                  ret +=
-                    encodeURIComponent(it) +
-                    "=" +
-                    encodeURIComponent(data[it]) +
-                    "&";
-                }
-                return ret;
-              }
-            ],
-            headers: {
-              "Content-Type": "application/x-www-form-urlencoded"
-            }
-          })
-            .then(resp => {
-              console.log("登录成功...");
-              if (resp == undefined) {
-                this.$message({
-                  showClose: true,
-                  message: "用户名或密码错误",
-                  type: "error"
-                });
-              } else {
-                // console.log(resp.data)//用户对象的所有信息 用户、角色、资源
-                this.$store.commit('Syn_SET_USER',resp.data)//同步将用户信息存入vuex
-                this.$message({
-                  showClose: true,
-                  message: "登录成功",
-                  type: "success",
-                });
-                this.$router.push({ path: "/" });
-                
-              }
-              this.logining = false;
-            })
-            .catch(e => {
-              this.logining = false;
-              console.log(e);
-              alert(e.message);
-            });
-        } else {
-          console.log("error submit!");
-          return false;
-        }
-      });
-    }
-  }
+  //监听属性 类似于data概念
+  computed: {},
+  //监控data中的数据变化
+  watch: {},
+  //方法集合
+  methods: {},
+  //生命周期 - 创建完成（可以访问当前this实例）
+  created() {},
+  //生命周期 - 挂载完成（可以访问DOM元素）
+  mounted() {}
 };
 </script>
-
-<style scoped>
-.login-container {
-  width: 100%;
-  height: 100%;
+<style  scoped>
+/* @import "../../assets/login/css/style.css"; */
+/*@import url(); 引入公共css类*/
+ul li {
+  font-size: 30px;
+  color: #2ec0f6;
 }
-.login-page {
-  -webkit-border-radius: 5px;
-  border-radius: 5px;
-  margin: 180px auto;
-  width: 350px;
-  padding: 35px 35px 15px;
-  background: #fff;
-  border: 1px solid #eaeaea;
-  box-shadow: 0 0 25px #cac6c6;
+.tyg-div {
+  z-index: -1000;
+  float: left;
+  position: absolute;
+  left: 5%;
+  top: 20%;
 }
-label.el-checkbox.rememberme {
-  margin: 0px 0px 15px;
-  text-align: left;
+.tyg-p {
+  font-size: 14px;
+  font-family: "microsoft yahei";
+  position: absolute;
+  top: 135px;
+  left: 60px;
+}
+.tyg-div-denglv {
+  z-index: 1000;
+  float: right;
+  position: absolute;
+  right: 3%;
+  top: 10%;
+}
+.tyg-div-form {
+  background-color: #23305a;
+  width: 300px;
+  height: auto;
+  margin: 120px auto 0 auto;
+  color: #2ec0f6;
+}
+.tyg-div-form form {
+  padding: 10px;
+}
+.tyg-div-form form input[type="text"] {
+  width: 270px;
+  height: 30px;
+  margin: 25px 10px 0px 0px;
+}
+.tyg-div-form form button {
+  cursor: pointer;
+  width: 270px;
+  height: 44px;
+  margin-top: 25px;
+  padding: 0;
+  background: #2ec0f6;
+  -moz-border-radius: 6px;
+  -webkit-border-radius: 6px;
+  border-radius: 6px;
+  border: 1px solid #2ec0f6;
+  -moz-box-shadow: 0 15px 30px 0 rgba(255, 255, 255, 0.25) inset,
+    0 2px 7px 0 rgba(0, 0, 0, 0.2);
+  -webkit-box-shadow: 0 15px 30px 0 rgba(255, 255, 255, 0.25) inset,
+    0 2px 7px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 0 15px 30px 0 rgba(255, 255, 255, 0.25) inset,
+    0 2px 7px 0 rgba(0, 0, 0, 0.2);
+  font-family: "PT Sans", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: #fff;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  -o-transition: all 0.2s;
+  -moz-transition: all 0.2s;
+  -webkit-transition: all 0.2s;
+  -ms-transition: all 0.2s;
 }
 </style>
