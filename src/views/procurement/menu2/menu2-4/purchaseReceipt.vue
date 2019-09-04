@@ -8,7 +8,7 @@
       <el-col :span="24">
         <el-col :span="12">
           <el-form-item label="订单号查询">
-            <el-input></el-input>
+            <el-input v-model="querytjinfo.danhao"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="12">
@@ -16,8 +16,10 @@
             <el-date-picker
               type="date"
               placeholder="选择日期"
-              v-model="sizeForm.date1"
+              v-model="querytjinfo.riqi"
               style="width: 100%;"
+              value-format="yyyy-MM-dd"
+              format="yyyy-MM-dd"
             ></el-date-picker>
           </el-form-item>
         </el-col>
@@ -26,15 +28,15 @@
       <el-col :span="24">
         <el-col :span="12">
           <el-form-item label="审核状态">
-            <el-select v-model="sizeForm.region" placeholder="请选择" style="width:100%">
-              <el-option label="已审核" value="6"></el-option>
-              <el-option label="未审核" value="7"></el-option>
+            <el-select v-model="querytjinfo.danjustate" placeholder="请选择" style="width:100%">
+              <el-option label="已审核" :value="1"></el-option>
+              <el-option label="未审核" :value="0"></el-option>
             </el-select>
           </el-form-item>
         </el-col>
         <el-col :span="6">
           <el-row style="margin:0px 100px">
-            <el-button icon="el-icon-search" circle size="mini"></el-button>
+            <el-button icon="el-icon-search" circle size="mini" @click="querylike"></el-button>
           </el-row>
         </el-col>
         <el-col :span="6">
@@ -46,20 +48,37 @@
     </el-form>
 
     <template>
-      <el-table :data="tableData" style="width: 100%" border size="mini">
-        <el-table-column prop="test" label="序号" sortable width></el-table-column>
-        <el-table-column prop="test" label="订单号" sortable width></el-table-column>
-        <el-table-column prop="test" label="订单号" sortable width></el-table-column>
-        <el-table-column prop="test" label="订单号" sortable width></el-table-column>
-        <el-table-column prop="test" label="操作" sortable width>
-          <el-button type="primary" plain size="mini">详细</el-button>
-          <el-button type="danger" plain size="mini">删除</el-button>
+      <el-table :data="rukumaininfo.list" style="width: 100%" border size="mini">
+        <el-table-column prop="stockstorageno" label="单号" sortable width></el-table-column>
+        <el-table-column prop="storagedate" label="日期" sortable width></el-table-column>
+        <el-table-column prop="purveyname" label="供货商名称" sortable width></el-table-column>
+        <el-table-column prop="pricerevenue" label="单价是否含税" sortable width></el-table-column>
+        <el-table-column label="操作" sortable width>
+          <template slot-scope="temp">
+            <el-button type="primary" plain size="mini" @click="get(temp.row.stockstorageno)">详细</el-button>
+            <el-button
+              type="danger"
+              plain
+              size="mini"
+              @click="deldanhao(temp.row.stockstorageno)"
+            >删除</el-button>
+          </template>
         </el-table-column>
       </el-table>
     </template>
 
     <el-col :span="24" style="text-align:center">
-      <el-pagination :page-size="20" :pager-count="11" layout="prev, pager, next" :total="1000"></el-pagination>
+      <el-pagination
+        v-if="rukumaininfo.total!=0"
+        :pager-count="4"
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+        :current-page="rukumaininfo.pageNum"
+        :page-sizes="[2,4]"
+        :page-size="rukumaininfo.pageSize"
+        layout="total, sizes, prev, pager, next, jumper"
+        :total="rukumaininfo.total"
+      ></el-pagination>
     </el-col>
   </div>
 </template>
@@ -72,31 +91,104 @@ export default {
         region: "",
         date1: "",
         type: [],
-        resource: ""
+        resource: "",
+        danhao: ""
       },
-      tableData: [
-        {
-          date: "2016-05-02",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1518 弄"
-        },
-        {
-          date: "2016-05-04",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1517 弄"
-        },
-        {
-          date: "2016-05-01",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1519 弄"
-        },
-        {
-          date: "2016-05-03",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1516 弄"
-        }
-      ]
+      rukumaininfo: {},
+      querytjinfo: {
+        danjustate: "",
+        riqi: "",
+        danhao: ""
+      }
     };
+  },
+  methods: {
+    //查询所有
+    loadpage(num, size) {
+      let _temp1 = this;
+      _temp1.$ajax
+        .get(`api/rukumain/querymaintable/${num}/${size}`)
+        .then(resp => {
+          _temp1.rukumaininfo = resp.data;
+        })
+        .catch(e => {
+          alert(e);
+        });
+    },
+    //上一页
+    goToPrePage() {
+      this.loadpage(this.rukumaininfo.prePage, this.rukumaininfo.pageSize);
+    },
+    //下一页
+    goToNextPage() {
+      this.loadpage(this.rukumaininfo.nextPage, this.rukumaininfo.pageSize);
+    },
+    handleSizeChange(val) {
+      this.loading = true;
+      this.loadpage(this.rukumaininfo.pageNum, val);
+    },
+    handleCurrentChange(val) {
+      this.loading = true;
+      this.loadpage(val, this.rukumaininfo.pageSize);
+    },
+    //模糊搜索
+    querylike() {
+      let _temp2 = this;
+      // alert(_temp2.querytjinfo.danhao)
+      // alert(_temp2.querytjinfo.riqi)
+      //alert(_temp2.querytjinfo.danjustate)
+      if (_temp2.querytjinfo.danhao == "") {
+        _temp2.querytjinfo.danhao = " ";
+      }
+      if (_temp2.querytjinfo.riqi == "") {
+        _temp2.querytjinfo.riqi = " ";
+      }
+      if (_temp2.querytjinfo.danjustate == "") {
+        _temp2.querytjinfo.danjustate = " ";
+      }
+      _temp2.$ajax
+        .get(
+          `api/rukumain/querymainlike/${_temp2.querytjinfo.danhao}/${_temp2.querytjinfo.riqi}/${_temp2.querytjinfo.danjustate}/1/2`
+        )
+        .then(resp => {
+          _temp2.rukumaininfo = resp.data;
+        })
+        .catch(e => {
+          alert(e);
+        });
+    },
+    //主表进详表
+    get(danhao) {
+      this.$store.commit("addTab", {
+        title: "入库详细",
+        name: "purchaseReceiptDetail"
+      });
+      this.$router.replace(`/procurement/menu2/menu2-4/detail/${danhao}`);
+    },
+    //主详删除
+    deldanhao(danhao) {
+      if (confirm("是否删除此条入库单？") == true) {
+        alert(danhao);
+        this.$ajax
+          .delete(`api/rukumain/delmain/${danhao}`)
+          .then(resp => {
+            if (resp.data.code == "200") {
+              alert("删除成功！");
+            }
+          })
+          .catch(e => {
+            alert(e);
+          });
+      }
+    }
+  },
+  mounted() {
+    this.loadpage(1, 2);
+  },
+  watch: {
+    $route(to, from) {
+      this.loadpage(1, 2);
+    }
   }
 };
 </script>
