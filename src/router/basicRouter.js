@@ -3,16 +3,14 @@ const basicRouter = {
   path: '/basic',
   component: () => import('@/views/home/index.vue'),
   name: 'basic',
-  meta: {
-    title: '共用资料',
-    icon: 'el-icon-s-grid',
-    permissions: '这里是权限'
-  },
+  title: '共用资料',
+  icon: 'el-icon-s-grid',
+  isMenu:true,
   children: [
     {
       path: '/basic/menu1',
       name: 'menu1',
-      meta: { title: '基本资料', permissions: '这里是权限' },
+      title: '基本资料',
       components: {
         employeeSetting: () => import('@/views/basic/menu1/menu1-5/employees.vue'),
         departmentSetting: () => import('@/views/basic/menu1/menu1-1/department.vue'),
@@ -24,97 +22,97 @@ const basicRouter = {
           path: '/basic/menu1/menu1-1',
           component: () => import('@/views/basic/menu1/menu1-1/department.vue'),
           name: 'departmentSetting',
-          meta: { title: '部门设定' }
+          title: '部门设定'
         },
         {
           path: '/basic/menu1/menu1-2',
-          component: () => import('@/views/basic/menu1/menu1-1/employees.vue'),
+          component: () => import('@/views/home/index.vue'),
           name: 'projectSetting',
-          meta: { title: '项目设定' }
+          title: '项目设定'
         },
         {
           path: '/basic/menu1/menu1-3',
           component: () => import('@/views/basic/menu1/menu1-1/employees.vue'),
           name: 'currencySetting',
-          meta: { title: '币别设定' }
+          title: '币别设定'
         },
         {
           path: '/basic/menu1/menu1-4',
           component: () => import('@/views/basic/menu1/menu1-1/employees.vue'),
           name: 'areaSetting',
-          meta: { title: '地区设定' }
+          title: '地区设定'
         },
         {
           path: '/basic/menu1/menu1-5',
           component: () => import('@/views/basic/menu1/menu1-1/employees.vue'),
           name: 'educationSetting',
-          meta: { title: '学历设定' }
+          title: '学历设定'
         },
         {
           path: '/basic/menu1/menu1-6',
           component: () => import('@/views/basic/menu1/menu1-1/employees.vue'),
           name: 'bankSetting',
-          meta: { title: '银行设定' }
+          title: '银行设定'
         },
         {
           path: '/basic/menu1/menu1-7',
           component: () => import('@/views/basic/menu1/menu1-1/employees.vue'),
           name: 'taxItemsSetting',
-          meta: { title: '税目设定' }
+          title: '税目设定'
         },
         {
           path: '/basic/menu1/menu1-8',
           component: () => import('@/views/basic/menu1/menu1-1/employees.vue'),
           name: 'invoiceTypeSetting',
-          meta: { title: '发票类型设定' }
+          title: '发票类型设定'
         },
         {
           path: '/basic/menu1/menu1-9',
           component: () => import('@/views/basic/menu1/menu1-1/employees.vue'),
           name: 'bankTypeSetting',
-          meta: { title: '银行类别设定' }
+          title: '银行类别设定'
         },
         {
           path: '/basic/menu1/menu1-10',
           component: () => import('@/views/basic/menu1/menu1-1/employees.vue'),
           name: 'accountSetting',
-          meta: { title: '现金账户设定' }
+          title: '现金账户设定'
         },
         {
           path: '/basic/menu1/menu1-11',
           component: () => import('@/views/basic/menu1/menu1-1/employees.vue'),
           name: 'bankAccountSetting',
-          meta: { title: '银行存款账户设定' }
+          title: '银行存款账户设定'
         },
         {
           path: '/basic/menu1/menu1-12',
           component: () => import('@/views/basic/menu1/menu1-1/employees.vue'),
           name: 'settlementModeSetting',
-          meta: { title: '结算方式设定' }
+          title: '结算方式设定'
         },
         {
           path: '/basic/menu1/menu1-13',
           component: () => import('@/views/basic/menu1/menu1-1/employees.vue'),
           name: 'employeeSetting',
-          meta: { title: '人员主文件设定' }
+          title: '人员主文件设定'
         },
         {
           path: '/basic/menu1/menu1-14',
           component: () => import('@/views/basic/menu1/menu1-1/employees.vue'),
           name: 'RevenueAndExpenseSetting',
-          meta: { title: '收入费用类别设定' }
+          title: '收入费用类别设定'
         },
         {
           path: '/basic/menu1/menu1-15',
           component: () => import('@/views/basic/menu1/menu1-1/employees.vue'),
           name: 'holidaysSetting',
-          meta: { title: '节假日设定' }
+          title: '节假日设定'
         },
         {
           path: '/basic/menu1/menu1-16',
           component: () => import('@/views/basic/menu1/menu1-1/employees.vue'),
           name: 'calendarSetting',
-          meta: { title: '行事历设定' }
+          title: '行事历设定'
         },
         //自定义路由
         {
@@ -133,9 +131,9 @@ const basicRouter = {
     {
       path: '/basic/menu2',
       name: 'menu2',
-      meta: { title: '物料资料', permissions: '这里是权限' },
+      title: '物料资料',
       components: {
-        warehouseSetting:() => import('@/views/basic/menu2/menu2-1/cangkuchaxun.vue'),
+        warehouseSetting: () => import('@/views/basic/menu2/menu2-1/cangkuchaxun.vue'),
         measurementUnitSetting: () => import('@/views/basic/menu2/menu2-3/jiliangchaxun.vue'),
         materialCategorySetting: () => import('@/views/basic/menu2/menu2-2/wuliaoleibiechaxun.vue'),
         materialMasterFileSetting: () => import('@/views/basic/menu2/menu2-4/wuliaoweihuchaxun.vue'),
@@ -149,51 +147,51 @@ const basicRouter = {
       children: [
         {
           path: '/basic/menu2/menu2-1',
-          component: () => import('@/views/basic/menu2/menu2-1/cangkuchaxun.vue'),
+          component: () => import('@/views/basic/menu1/menu1-1/employees.vue'),
           name: 'warehouseSetting',
-          meta: { title: '仓库设定' }
+          title: '仓库设定'
         },
         {
           path: '/basic/menu2/menu2-2',
           component: () => import('@/views/basic/menu2/menu2-2/wuliaoleibiechaxun.vue'),
           name: 'materialCategorySetting',
-          meta: { title: '物料类别设定' }
+          title: '物料类别设定'
         },
         {
           path: '/basic/menu2/menu1-3',
           component: () => import('@/views/basic/menu2/menu2-3/jiliangchaxun.vue'),
           name: 'measurementUnitSetting',
-          meta: { title: '计量单位设定' }
+          title: '计量单位设定'
         },
         {
           path: '/basic/menu2/menu2-4',
           component: () => import('@/views/basic/menu2/menu2-4/wuliaoweihuchaxun.vue'),
           name: 'materialMasterFileSetting',
-          meta: { title: '物料主文件设定' }
+          title: '物料主文件设定'
         },
         {
           path: '/basic/menu2/menu2-5',
           component: () => import('@/views/basic/menu1/menu1-1/employees.vue'),
           name: 'priceOfBatchSetting',
-          meta: { title: '价格批次设定' }
+          title: '价格批次设定'
         },
         {
           path: '/basic/menu2/menu2-6',
           component: () => import('@/views/basic/menu1/menu1-1/employees.vue'),
           name: 'listOfMaterials',
-          meta: { title: '物料组合一览表' }
+          title: '物料组合一览表'
         },
         {
           path: '/basic/menu2/menu2-7',
           component: () => import('@/views/basic/menu1/menu1-1/employees.vue'),
           name: 'originalFactoryNumberQuerySetting',
-          meta: { title: '原厂编号查询设定' }
+          title: '原厂编号查询设定'
         },
         {
           path: '/basic/menu2/menu2-8',
           component: () => import('@/views/basic/menu1/menu1-1/employees.vue'),
           name: 'listOfSubcomponentsSetting',
-          meta: { title: '子件一览表' }
+          title: '子件一览表'
         }
         //自定义添加修改页面路由 不进入左侧菜单栏
         ,
@@ -201,38 +199,38 @@ const basicRouter = {
           path: '/basic/menu2/menu2-2/add',
           component: () => import('@/views/basic/menu2/menu2-2/wuliaoleibietianjia.vue'),
           name: 'wuliaoleibietianjia',
-          meta: { title: '添加物料类别' },
+          title: '添加物料类别',
           hidden: true
         },
         {
           path: '/basic/menu2/menu2-2/update',
           component: () => import('@/views/basic/menu2/menu2-2/wuliaoleibiexiugai.vue'),
           name: 'wuliaoleibiexiugai',
-          meta: { title: '修改物料类别' },
+          title: '修改物料类别',
           hidden: true
         }, {
           path: '/basic/menu2/menu2-3/add',
           component: () => import('@/views/basic/menu2/menu2-3/jiliangtianjia.vue'),
           name: 'jiliangtianjia',
-          meta: { title: '添加计量' },
+          title: '添加计量',
           hidden: true
         }, {
           path: '/basic/menu2/menu2-3/update',
           component: () => import('@/views/basic/menu2/menu2-3/jiliangxiugai.vue'),
           name: 'jiliangxiugai',
-          meta: { title: '修改计量' },
+          title: '修改计量',
           hidden: true
         }, {
           path: '/basic/menu2/menu2-4/add',
           component: () => import('@/views/basic/menu2/menu2-4/wuliaoweihutianjia.vue'),
           name: 'wuliaoweihutianjia',
-          meta: { title: '添加物料主文件' },
+          title: '添加物料主文件',
           hidden: true
         }, {
           path: '/basic/menu2/menu2-4/update',
           component: () => import('@/views/basic/menu2/menu2-4/wuliaoweihuxiugai.vue'),
           name: 'wuliaoweihuxiugai',
-          meta: { title: '修改物料主文件' },
+          title: '修改物料主文件',
           hidden: true
         }
       ]
@@ -240,7 +238,7 @@ const basicRouter = {
     {
       path: '/basic/menu3',
       name: 'menu3',
-      meta: { title: '往来资料', permissions: '这里是权限' },
+      title: '往来资料',
       components: {
         customerCategorySetting: () => import('@/views/basic/menu3/menu3-1/kehuleibiechaxun.vue'),
         customerMasterFileSetting: () => import('@/views/basic/menu3/menu3-5/kehuziliaochaxun.vue'),
@@ -260,49 +258,49 @@ const basicRouter = {
           path: '/basic/menu3/menu3-1',
           component: () => import('@/views/basic/menu3/menu3-1/kehuleibiechaxun.vue'),
           name: 'customerCategorySetting',
-          meta: { title: '客户类别设定' }
+          title: '客户类别设定'
         },
         {
           path: '/basic/menu3/menu1-2',
           component: () => import('@/views/basic/menu1/menu1-1/employees.vue'),
           name: 'customerLevelSetting',
-          meta: { title: '客户等级设定' }
+          title: '客户等级设定'
         },
         {
           path: '/basic/menu3/menu1-3',
           component: () => import('@/views/basic/menu1/menu1-1/employees.vue'),
           name: 'negotiationStageSetting',
-          meta: { title: '洽谈阶段设定' }
+          title: '洽谈阶段设定'
         },
         {
           path: '/basic/menu3/menu1-4',
           component: () => import('@/views/basic/menu1/menu1-1/employees.vue'),
           name: 'potentialCustomerMasterFileSetting',
-          meta: { title: '潜在客户主文件设定' }
+          title: '潜在客户主文件设定'
         },
         {
           path: '/basic/menu3/menu3-5',
           component: () => import('@/views/basic/menu3/menu3-5/kehuziliaochaxun.vue'),
           name: 'customerMasterFileSetting',
-          meta: { title: '客户主文件设定' }
+          title: '客户主文件设定'
         },
         {
           path: '/basic/menu3/menu1-6',
           component: () => import('@/views/basic/menu1/menu1-1/employees.vue'),
-          name: 'transferPotentialCustomersToFormalCustomers',
-          meta: { title: '潜在客户转正式客户设定' }
+          name: 'qianzaiTozhengshi',
+          title: '潜在客户转正式客户设定'
         },
         {
           path: '/basic/menu3/menu3-7',
           component: () => import('@/views/basic/menu3/menu3-7/gongyingshangleibiechaxun.vue'),
           name: 'supplierCategorySetting',
-          meta: { title: '供应商类别设定' }
+          title: '供应商类别设定'
         },
         {
           path: '/basic/menu3/menu3-8',
           component: () => import('@/views/basic/menu3/menu3-8/gongyingshangziliaochaxun.vue'),
           name: 'supplierMasterFileSetting',
-          meta: { title: '供应商主文件设定' }
+          title: '供应商主文件设定'
         }
         //自定义添加修改页面路由 不进入左侧菜单栏
         ,
@@ -351,28 +349,28 @@ const basicRouter = {
     {
       path: '/basic/menu4',
       name: 'menu4',
-      meta: { title: '科目资料', permissions: '这里是权限' },
+      title: '科目资料',
       components: {
         employee: () => import('@/views/basic/menu1/menu1-1/employees.vue'),
       },
       children: [
         {
-          path: '/basic/menu3/menu1-1',
+          path: '/basic/menu4/menu4-1',
           component: () => import('@/views/basic/menu1/menu1-1/employees.vue'),
           name: 'subjectTypeSetting',
-          meta: { title: '科目种类设定' }
+          title: '科目种类设定'
         },
         {
-          path: '/basic/menu3/menu1-2',
+          path: '/basic/menu4/menu4-2',
           component: () => import('@/views/basic/menu1/menu1-1/employees.vue'),
           name: 'subjectCategorySetting',
-          meta: { title: '科目类别设定' }
+          title: '科目类别设定'
         },
         {
-          path: '/basic/menu3/menu1-3',
+          path: '/basic/menu4/menu4-3',
           component: () => import('@/views/basic/menu1/menu1-1/employees.vue'),
           name: 'accountingAccountSetting',
-          meta: { title: '会计科目设定' }
+          title: '会计科目设定'
         }
       ]
     }

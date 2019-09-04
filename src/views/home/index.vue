@@ -8,9 +8,7 @@
               style="padding-top:12px;border-right:1px solid #e6e6e6;height:36px;float:left"
               :style="{width:(isCollapse?'44px':'157px')}"
             >
-            <div style="overflow: hidden;height:20px;">
-              ERP管理系统
-            </div>
+              <div style="overflow: hidden;height:20px;">ERP管理系统</div>
             </div>
             <div
               style="width: 60px; cursor: pointer;height:100%;margin:10px 0px 0px 8px;float:left"
@@ -21,15 +19,16 @@
             </div>
           </el-col>
           <el-col :span="3" style="font-size:24px;padding-top:5px">
-            
             <el-button type="primary" icon="el-icon-user-solid">{{this.$store.state.user.uname}}</el-button>
             <el-button type="danger" icon="el-icon-lock" circle></el-button>
             <el-button type="primary" icon="el-icon-platform-eleme" circle></el-button>
           </el-col>
+          <el-col :span="12">中间部分</el-col>
+          <el-col :span="6">欢迎</el-col>
         </el-row>
       </el-header>
       <el-container>
-        <el-aside :style="{width:(isCollapse?'auto':'178px')}">
+        <el-aside :style="{width:(isCollapse?'auto':'200px')}">
           <el-row class="tac">
             <el-col :span="24">
               <el-menu
@@ -41,13 +40,12 @@
                 style="height:90vh"
                 :router="true"
               >
-                <div></div>
                 <template v-for="(item,index) in menuList">
                   <!-- 三级菜单 -->
                   <el-submenu :index="index+''" :key="item.path">
                     <template slot="title">
-                      <i :class="item.meta.icon"></i>
-                      <span slot="title">{{item.meta.title}}</span>
+                      <i :class="item.icon"></i>
+                      <span slot="title">{{item.title}}</span>
                     </template>
                     <el-submenu
                       v-for="child in item.children"
@@ -57,7 +55,7 @@
                       <template slot="title">
                         <i class="el-icon-folder"></i>
                         <span slot="title">
-                          <span>{{child.meta.title}}</span>
+                          <span>{{child.title}}</span>
                         </span>
                       </template>
                       <el-menu-item-group>
@@ -66,11 +64,11 @@
                             <el-menu-item
                               :index="childThree.path"
                               :key="childThree.path"
-                              @click="addTab(childThree.meta.title,childThree.name)"
+                              @click="addTab(childThree.title,childThree.name)"
                             >
                               <span slot="title">
                                 <i class="el-icon-document"></i>
-                                <span>{{childThree.meta.title}}</span>
+                                <span>{{childThree.title}}</span>
                               </span>
                             </el-menu-item>
                           </template>
@@ -89,7 +87,6 @@
             type="card"
             closable
             @tab-remove="removeTab"
-            :before-leave="activeName"
           >
             <template v-if="editableTabs.length==0">
               <div>
@@ -135,9 +132,6 @@ export default {
   watch: {},
   //方法集合
   methods: {
-    toggleSideBar() {
-      this.isCollapse = !this.isCollapse;
-    },
     handleOpen(key, keyPath) {
       console.log(key, keyPath);
     },
@@ -161,8 +155,6 @@ export default {
       let tabs = this.editableTabs;
       let activeName = this.editableTabsValue;
       //如果要删除的节点是当前选中的
-      alert("选中的" + activeName);
-      alert("将要删除的" + targetName);
       if (activeName === targetName) {
         tabs.forEach((tab, index) => {
           if (tab.name === targetName) {
@@ -173,18 +165,36 @@ export default {
           }
         });
       }
-      this.$store.commit("removeTab", targetName); //更新浏览器缓存
-
-      this.editableTabs = tabs.filter(tab => tab.name !== targetName);
-    },
-    activeName(activeName, oldActiveName) {
       this.editableTabsValue = activeName;
       sessionStorage.setItem(`editableTabsValue`, activeName);
       // alert(activeName+"==="+oldActiveName)
+    },
+    initMenu() {
+      // this.$ajax
+      //   .post("/menu/menuAll")
+      //   .then(resp => {
+      //     // console.log("ALL路由信息" + JSON.stringify(resp));
+      //     let user = this.$store.state.user;
+      //     let strMenu = JSON.stringify(this.menuList); //resp.data
+      //     let menus = [];
+      //     // alert(JSON.stringify(resp.data))
+      //     user.roles.forEach(role => {
+      //       role.menus.forEach(oneMenu => {
+      //         // alert(JSON.stringify(oneMenu));
+      //         if (strMenu.indexOf(oneMenu.title) != -1) {
+      //           menus.push(oneMenu);
+      //         }
+      //       });
+      //     });
+
+      //     this.menuList=resp.data;
+      //   })
+      //   .catch(e => {});
     }
   },
   created() {
     // alert(sessionStorage.getItem(`user`));
+<<<<<<< HEAD
     // let user = this.$store.state.user;
     // if (JSON.stringify(user) == "{}") {
     //   //store里的user为空
@@ -195,16 +205,29 @@ export default {
     //   user = this.$store.state.user;
     // }
 
+=======
+    let user = this.$store.state.user;
+    if (JSON.stringify(user) == "{}") {
+      //store里的user为空
+      this.$store.commit(
+        "Syn_SET_USER",
+        JSON.parse(sessionStorage.getItem(`user`))
+      ); //将浏览器缓存的用户信息存入vuex
+      user = this.$store.state.user;
+    }
+>>>>>>> e015a17cb95ebb835032c3c22b719d4b70cc16e7
     console.log("index.vue 准备初始化动态路由...");
     //  获取路由
     // alert(JSON.stringify(this.$router.options))
-    // alert(JSON.stringify(this.$store.state.user))
     this.$router.options.routes.forEach(element => {
-      if (element.meta) {
+      if (element.isMenu) {
         console.log(element);
         this.menuList.push(element);
       }
     });
+  },
+  mounted() {
+    this.initMenu();
   }
 };
 </script>
