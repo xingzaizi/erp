@@ -185,15 +185,15 @@ export default {
   },
   created() {
     // alert(sessionStorage.getItem(`user`));
-    let user = this.$store.state.user;
-    if (JSON.stringify(user) == "{}") {
-      //store里的user为空
-      this.$store.commit(
-        "Syn_SET_USER",
-        JSON.parse(sessionStorage.getItem(`user`))
-      ); //将浏览器缓存的用户信息存入vuex
-      user = this.$store.state.user;
-    }
+    // let user = this.$store.state.user;
+    // if (JSON.stringify(user) == "{}") {
+    //   //store里的user为空
+    //   this.$store.commit(
+    //     "Syn_SET_USER",
+    //     JSON.parse(sessionStorage.getItem(`user`))
+    //   ); //将浏览器缓存的用户信息存入vuex
+    //   user = this.$store.state.user;
+    // }
 
     console.log("index.vue 准备初始化动态路由...");
     //  获取路由
