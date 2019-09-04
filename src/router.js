@@ -50,5 +50,6 @@ router.beforeEach((to, from, next) => {
   }
 })
 
+
 //全局路由对象
 export default router
