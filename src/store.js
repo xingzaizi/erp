@@ -44,7 +44,6 @@ export default new Vuex.Store({
       state.user = user;
       //解决页面刷新丢失store数据 存入浏览器缓存
       sessionStorage.setItem(`user`, JSON.stringify(user))
-
       // user.roles.forEach(role => {
       //   role.menus.forEach(menu => {
       //     //menu 菜单项

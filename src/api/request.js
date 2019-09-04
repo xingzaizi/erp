@@ -1,5 +1,4 @@
 import axios from 'axios'
-import router from '@/router'
 
 // 创建axios实例
 const ajax = axios.create({
@@ -16,16 +15,15 @@ ajax.interceptors.request.use(config => {
 ajax.interceptors.response.use(config => {
     return config
 },function(error){
-    if(error && error.response){
-        if(error.response.status=="405"){
-            MessageBox("请求错误或权限不够，请联系管理员");
-            return error;
-        }
-    }else{
-        MessageBox("网络超时，请重新登录");
-        router.push("/login");
-        return error;
-    }
+    // if(error && error.response){
+    //     if(error.response.status=="405"){
+    //         return error;
+    //     }
+    // }else{
+    //     router.push("/login");
+    //     return error;
+    // }
+    return error;
 })
 
 export default ajax
