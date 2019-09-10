@@ -9,8 +9,8 @@ import axios from 'axios';
 import jquery from 'jquery';
 Vue.config.productionTip = false
 
-
 import ajax from '@/api/request.js'
+
 
 axios.defaults.withCredentials=true //跨域访问session同步
 Vue.use(ElementUI)

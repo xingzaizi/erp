@@ -38,6 +38,10 @@ export default new Vuex.Store({
       sessionStorage.setItem(`editableTabs`,JSON.stringify(state.editableTabs))
     }
     ,
+    removeAllTab(state){
+      state.editableTabs=[];
+      sessionStorage.setItem(`editableTabs`,"")
+    },
     // 同步 this.$store.commit("Syn_SET_USER", user); // user 为参数
     Syn_SET_USER(state, user) {
       // console.log(params.Token, params.userNo);

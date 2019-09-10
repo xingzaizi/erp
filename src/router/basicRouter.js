@@ -158,7 +158,7 @@ const basicRouter = {
           title: '物料类别设定'
         },
         {
-          path: '/basic/menu2/menu1-3',
+          path: '/basic/menu2/menu2-3',
           component: () => import('@/views/basic/menu2/menu2-3/jiliangchaxun.vue'),
           name: 'measurementUnitSetting',
           title: '计量单位设定'
@@ -261,19 +261,19 @@ const basicRouter = {
           title: '客户类别设定'
         },
         {
-          path: '/basic/menu3/menu1-2',
+          path: '/basic/menu3/menu3-2',
           component: () => import('@/views/basic/menu1/menu1-1/employees.vue'),
           name: 'customerLevelSetting',
           title: '客户等级设定'
         },
         {
-          path: '/basic/menu3/menu1-3',
+          path: '/basic/menu3/menu3-3',
           component: () => import('@/views/basic/menu1/menu1-1/employees.vue'),
           name: 'negotiationStageSetting',
           title: '洽谈阶段设定'
         },
         {
-          path: '/basic/menu3/menu1-4',
+          path: '/basic/menu3/menu3-4',
           component: () => import('@/views/basic/menu1/menu1-1/employees.vue'),
           name: 'potentialCustomerMasterFileSetting',
           title: '潜在客户主文件设定'
@@ -285,7 +285,7 @@ const basicRouter = {
           title: '客户主文件设定'
         },
         {
-          path: '/basic/menu3/menu1-6',
+          path: '/basic/menu3/menu3-6',
           component: () => import('@/views/basic/menu1/menu1-1/employees.vue'),
           name: 'qianzaiTozhengshi',
           title: '潜在客户转正式客户设定'

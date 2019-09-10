@@ -3,7 +3,7 @@
     <el-container>
       <el-header style="background:white;height:5vh;border-bottom:1px solid #e6e6e6;">
         <el-row style>
-          <el-col :span="21" style>
+          <el-col :span="18" style>
             <div
               style="padding-top:12px;border-right:1px solid #e6e6e6;height:36px;float:left"
               :style="{width:(isCollapse?'44px':'157px')}"
@@ -18,8 +18,9 @@
               <i v-show="isCollapse" class="el-icon-d-arrow-right"></i>
             </div>
           </el-col>
-          <el-col :span="3" style="font-size:24px;padding-top:5px">
+          <el-col :span="6" style="font-size:24px;padding-top:5px">
             <el-button type="primary" icon="el-icon-user-solid">{{this.$store.state.user.uname}}</el-button>
+            <el-button type="primary" icon="el-icon-delete" @click="removeAllTab">清空标签页</el-button>
             <el-button type="danger" icon="el-icon-lock" circle></el-button>
             <el-button type="primary" icon="el-icon-platform-eleme" circle></el-button>
           </el-col>
@@ -81,7 +82,7 @@
         </el-aside>
         <el-main>
           <el-tabs
-            v-model="this.$store.state.editableTabsValue"
+            v-model="editableTabsValue"
             type="card"
             closable
             @tab-remove="removeTab"
@@ -119,7 +120,7 @@ export default {
     return {
       isCollapse: false,
       menuList: [],
-      editableTabsValue: this.$store.state.editableTabsValue,
+      editableTabsValue: sessionStorage.getItem(`editableTabsValue`),
       editableTabs: this.$store.state.editableTabs,
       tabIndex: 2
     };
@@ -142,6 +143,8 @@ export default {
     //节点名称 节点标识 节点内容(页面内容)
     addTab(title, name) {
       this.$store.commit("addTab", { title, name });
+      this.editableTabs = this.$store.state.editableTabs
+      this.editableTabsValue = this.$store.state.editableTabsValue
       // if (JSON.stringify(this.editableTabs).indexOf(name) == -1) {
       //   //当数组中不存在这个tab 才push进入数组
       //   this.editableTabs.push({
@@ -169,31 +172,38 @@ export default {
       this.editableTabsValue = activeName;
       sessionStorage.setItem(`editableTabsValue`, activeName);
       // alert(activeName+"==="+oldActiveName)
+      this.$store.commit("removeTab",targetName);
+      
+    },
+    removeAllTab(){
+      this.$store.commit("removeAllTab");
+      this.editableTabs = []
     },
     initMenu() {
-      // this.$ajax
-      //   .post("/menu/menuAll")
-      //   .then(resp => {
-      //     // console.log("ALL路由信息" + JSON.stringify(resp));
-      //     let user = this.$store.state.user;
-      //     let strMenu = JSON.stringify(this.menuList); //resp.data
-      //     let menus = [];
-      //     // alert(JSON.stringify(resp.data))
-      //     user.roles.forEach(role => {
-      //       role.menus.forEach(oneMenu => {
-      //         // alert(JSON.stringify(oneMenu));
-      //         if (strMenu.indexOf(oneMenu.title) != -1) {
-      //           menus.push(oneMenu);
-      //         }
-      //       });
-      //     });
+      this.$ajax
+        .post("/menu/menuAll")
+        .then(resp => {
+          // console.log("ALL路由信息" + JSON.stringify(resp));
+          let user = this.$store.state.user;
+          let strMenu = JSON.stringify(this.menuList); //resp.data
+          let menus = [];
+          // alert(JSON.stringify(resp.data))
+          user.roles.forEach(role => {
+            role.menus.forEach(oneMenu => {
+              // alert(JSON.stringify(oneMenu));
+              if (strMenu.indexOf(oneMenu.title) != -1) {
+                menus.push(oneMenu);
+              }
+            });
+          });
 
-      //     this.menuList=resp.data;
-      //   })
-      //   .catch(e => {});
+          this.menuList=resp.data;
+        })
+        .catch(e => {});
     }
   },
   created() {
+    this.editableTabsValue = this.$store.state.editableTabsValue
     let user = this.$store.state.user;
     if (JSON.stringify(user) == "{}") {
       //store里的user为空
@@ -212,9 +222,10 @@ export default {
         this.menuList.push(element);
       }
     });
+    // this.initMenu();
   },
   mounted() {
-    this.initMenu();
+    
   }
 };
 </script>

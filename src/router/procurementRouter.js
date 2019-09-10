@@ -24,7 +24,7 @@ const procurementRouter = {
                 {
                     path: '/procurement/menu1/menu1-2',
                     component: () => import('@/views/basic/menu1/menu1-1/employees.vue'),
-                    name: 'purchaseWarehousingType Setting',
+                    name: 'purchaseWarehousingTypeSetting',
                     title: '采购入库类型设定'
                 },
                 {
@@ -40,9 +40,9 @@ const procurementRouter = {
             name: 'menu2',
             title: '采购作业',
             components: {
-                purchaseOrder: () => import('@/views/procurement/menu2/menu2-1/Po.vue'),//采购订单
-                purchaseInquiry: () => import('@/views/procurement/menu2/menu2-2/PoInquiry.vue'),//采购询价单
-                purchaseRequisition: () => import('@/views/procurement/menu2/menu2-3/PoRequisition.vue'),//采购请购单
+                purchaseOrder: () => import('@/views/procurement/menu2/menu2-3/Po.vue'),//采购订单
+                purchaseInquiry: () => import('@/views/procurement/menu2/menu2-1/PoInquiry.vue'),//采购询价单
+                purchaseRequisition: () => import('@/views/procurement/menu2/menu2-2/PoRequisition.vue'),//采购请购单
                 purchaseReceipt: () => import('@/views/procurement/menu2/menu2-4/purchaseReceipt.vue'),//采购入库单
                 purchaseReturnOrder: () => import('@/views/procurement/menu2/menu2-5/purchaseReturnOrder.vue'),//采购退货单
                 purchaseInvoice: () => import('@/views/procurement/menu2/menu2-7/purchaseInvoice.vue'),//采购发票
@@ -55,21 +55,21 @@ const procurementRouter = {
             children: [
                 {
                     path: '/procurement/menu2/menu2-1',
-                    component: () => import('@/views/procurement/menu2/menu2-1/Po.vue'),
-                    name: 'purchaseOrder',
-                    title: '采购订单'
-                },
-                {
-                    path: '/procurement/menu2/menu2-2',
-                    component: () => import('@/views/procurement/menu2/menu2-2/PoInquiry.vue'),
+                    component: () => import('@/views/procurement/menu2/menu2-1/PoInquiry.vue'),
                     name: 'purchaseInquiry',
                     title: '采购询价单'
                 },
                 {
-                    path: '/procurement/menu2/menu2-3',
-                    component: () => import('@/views/procurement/menu2/menu2-3/PoRequisition.vue'),
+                    path: '/procurement/menu2/menu2-2',
+                    component: () => import('@/views/procurement/menu2/menu2-2/PoRequisition.vue'),
                     name: 'purchaseRequisition',
                     title: '采购请购单'
+                },
+                {
+                    path: '/procurement/menu2/menu2-3',
+                    component: () => import('@/views/procurement/menu2/menu2-3/Po.vue'),
+                    name: 'purchaseOrder',
+                    title: '采购订单'
                 },
                 {
                     path: '/procurement/menu2/menu2-4',
