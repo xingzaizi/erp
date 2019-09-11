@@ -1,234 +1,192 @@
 <template>
-  <div>
-    <el-card class="box-card">
-      <div slot="header" class="clearfix">
-        <span>
-          <h3>采购请购单</h3>
-        </span>
-        <br />
-        <el-row>
-          <el-col :span="9" :offset="9">
-            <el-button-group>
-              <el-button type="primary" @click="prepage(po.prePage)" icon="el-icon-arrow-left">上一页</el-button>
-              <el-button @click="nextpage(po.nextPage)" type="primary">
-                下一页
-                <i class="el-icon-arrow-right el-icon--right"></i>
-              </el-button>
-            </el-button-group>
-          </el-col>
-          <el-col :span="6">
-            <el-button-group >
-              <el-button type="primary" icon="el-icon-edit">修改</el-button>
-              <el-button type="primary" icon="el-icon-circle-plus">新增</el-button>
-              <el-button type="primary" icon="el-icon-delete">删除</el-button>
-            </el-button-group>
-          </el-col>
-        </el-row>
-      </div>
-      <div class="text item">
-        <el-row>
-          <el-col>
-            <el-form
-              :inline="true"
-              label-position="left"
-              label-width="100px"
-              class="demo-form-inline"
-            >
-              <el-row>
-                <el-col :span="12">
-                  <el-form-item label="采购请购类型">
-                    <el-input v-model="po.list[0].apptype"></el-input>
-                  </el-form-item>
-                </el-col>
-                <el-col :span="12">
-                  <el-form-item label="单据日期" style="display: inline-block;">
-                    <el-date-picker v-model="po.list[0].appdate" type="date" placeholder="选择日期"></el-date-picker>
-                  </el-form-item>
-                </el-col>
-              </el-row>
+  <el-container style="height:100vh">
+    <el-header height>
+      <!-- Header content -->
+      <el-row :gutter="20">
+        <el-col :span="8" :offset="11">
+          <div>
+            <h1>采购订单</h1>
+          </div>
+        </el-col>
+      </el-row>
+    </el-header>
+    <el-container>
+      <el-main>
+        <!-- Main content -->
 
-              <el-row>
-                <el-col :span="12">
-                  <el-form-item label="单况">
-                    <el-select  v-model="po.list[0].appcircs" placeholder="请选择单况">
-                      <el-option label="已结案" :value="1"></el-option>
-                      <el-option label="未结案" :value="2"></el-option>
-                    </el-select>
-                  </el-form-item>
-                </el-col>
-                <el-col :span="12">
-                  <el-form-item label="单据号码">
-                    <el-input v-model="po.list[0].appid"></el-input>
-                  </el-form-item>
-                </el-col>
-              </el-row>
-            </el-form>
-          </el-col>
-        </el-row>
-        <el-row>
-          <el-col>
-            <el-tabs type="border-card">
-              <el-tab-pane label="内容">
-                <template>
-                  <el-table :data="po.list[0].list" border style="width: 100%" >
-                    <el-table-column prop="appid" label="(栏号)"></el-table-column>
-                    <el-table-column prop="apdmateridlid" label="物料编号"></el-table-column>
-                    <el-table-column prop="apdmateridlname" label="(物料名称)"></el-table-column>
-                    <el-table-column prop="apdmodel" label="(规格型号)"></el-table-column>
-                    <el-table-column prop="apdunit" label="单位名称"></el-table-column>
-                    <el-table-column prop="apdnum" label="数量"></el-table-column>
-                    <el-table-column prop="date" label="币别"></el-table-column>
-                    <el-table-column prop="apdstandardprice" label="标准进价"></el-table-column>
-                    <el-table-column prop="apdstandardmoney" label="标准进价金额"></el-table-column>
-                    <el-table-column prop="apddemanddate" label="需求日期"></el-table-column>
-                    <el-table-column prop="apdstockdate" label="建议采购日期"></el-table-column>
-                    <el-table-column prop="apdnotnum" label="未采购量"></el-table-column>
-                    <el-table-column prop="date" label="分录备注"></el-table-column>
-                    <el-table-column prop="date" label="来源单别"></el-table-column>
-                    <el-table-column prop="date" label="来源单号"></el-table-column>
-                  </el-table>
-                </template>
-              </el-tab-pane>
-              <el-tab-pane label="备注">配置管理</el-tab-pane>
-            </el-tabs>
-          </el-col>
-        </el-row>
-        <el-row>
-          <el-col>
-            <el-form :inline="true" class="demo-form-inline" :label-position="leaf">
-              <div class="row">
-                <el-form-item label="业务人员">
-                  <el-input v-model="po.list[0].appperson" />
+        <el-row :gutter="20">
+          <el-col :span="16" :offset="5">
+            <div>
+              <el-form :inline="true" class="demo-form-inline" label-width="80px">
+                <el-form-item label="搜索类型:" prop="name">
+                  <el-select v-model="name" placeholder="请选择搜索类型">
+                    <el-option label="1" value="1"></el-option>
+                    <el-option label="2" value="2"></el-option>
+                  </el-select>
                 </el-form-item>
-                <el-form-item label="制单人员">
-                  <el-input v-model="po.list[0].appmaker" />
+                <el-form-item label="搜索信息:">
+                  <el-input v-model="admin" placeholder="请输入搜索信息"></el-input>
                 </el-form-item>
-              </div>
-            </el-form>
-            <el-form :inline="true" class="demo-form-inline" :label-position="leaf">
-              <div class="row">
-                <el-form-item label="所属部门">
-                  <el-input v-model="po.list[0].appdept " />
+                <el-form-item label="选择日期:">
+                  <el-date-picker
+                  v-model="value2"
+                  type="daterange"
+                  align="right"
+                  unlink-panels
+                  range-separator="至"
+                  start-placeholder="开始日期"
+                  end-placeholder="结束日期"
+                  :picker-options="pickerOptions"
+                ></el-date-picker>
                 </el-form-item>
-                <el-form-item label="复核人员">
-                  <el-input />
+                <br>
+                <el-form-item label="审核类型:" prop="name">
+                  <el-select v-model="name" placeholder="请选择搜索类型">
+                    <el-option label="全部" value="1"></el-option>
+                    <el-option label="未审核" value="2"></el-option>
+                    <el-option label="已审核" value="2"></el-option>
+                    <el-option label="失效" value="2"></el-option>
+                  </el-select>
                 </el-form-item>
-              </div>
-            </el-form>
-          </el-col>
-        </el-row>
-        <el-row type="flex" justify="center">
-          <el-col>
-            <el-button type="primary">销售订单转入</el-button>
-            <!-- <el-button type="primary"  @click="dialogVisible = true">历史交易查询</el-button> -->
-          </el-col>
-        </el-row>
-      </div>
 
-      <!-- <el-dialog
-          title="历史交易查询"
-          :visible.sync="dialogVisible"
-          width="60%"
-          >
-          
-        <el-row>
-            <el-col>
-                <el-form :inline="true" class="demo-form-inline" style="margin-left:0px;">
-                    <el-form-item label="客户" style="margin-right: 10px;">
-                        <el-input width="200" :disabled="true" placeholder="客户" style="width:300px;"></el-input>
-                    </el-form-item>
-                    <el-form-item style="margin-right: 0px;">
-                        <el-button type="success">资料输出</el-button>
-                    </el-form-item>
-                </el-form>
-            </el-col>
+                
+                <!-- <el-form-item label="开始日期:">
+                  <el-date-picker v-model="value1" type="datetime" placeholder="选择日期时间"></el-date-picker>
+                </el-form-item>
+                <el-form-item label="结束日期:">
+                  <el-date-picker v-model="value1" type="datetime" placeholder="选择日期时间"></el-date-picker>
+                </el-form-item> -->
+                
+                <el-form-item>
+                  <el-button type="primary">查询</el-button>
+                  <el-button style="background:#67C23A;color:white">新增</el-button>
+                  <el-button>重置</el-button>
+                </el-form-item>
+              </el-form>
+            </div>
+          </el-col>
         </el-row>
-        <el-row>
-          <el-col >
-               <template>
-              <el-table border style="width: 100%">
-                <el-table-column prop="date" label="(单别)"></el-table-column>
-                <el-table-column prop="date" label="日期"></el-table-column>
-                <el-table-column prop="date" label="(单号)"></el-table-column>
-                <el-table-column prop="date" label="(币别)"></el-table-column>
-                <el-table-column prop="date" label="物料编号"></el-table-column>
-                <el-table-column prop="date" label="物料名称"></el-table-column>
-                <el-table-column prop="date" label="规格型号"></el-table-column>
-                <el-table-column prop="date" label="单位"></el-table-column>
-                <el-table-column prop="date" label="数量"></el-table-column>
-                <el-table-column prop="date" label="折扣前单价"></el-table-column>
-                <el-table-column prop="date" label="折数(%)"></el-table-column>
-                <el-table-column prop="date" label="(单价)"></el-table-column>
-                <el-table-column prop="date" label="(是否含税)"></el-table-column>
-                <el-table-column prop="date" label="金额"></el-table-column>
-                <el-table-column prop="date" label="备注"></el-table-column>
+
+        <el-row :gutter="20">
+          <el-col :span="18" :offset="4">
+            <div>
+              <el-table
+                border
+                :data="tableData"
+                style="width: 100%"
+                :row-class-name="tableRowClassName"
+              >
+                <el-table-column prop="date" label="序号" width="180"></el-table-column>
+                <el-table-column prop="name" label="供应商名称" width="180"></el-table-column>
+                <el-table-column prop="address" label="日期"></el-table-column>
+                <el-table-column prop="address" label="单况"></el-table-column>
+                <el-table-column prop="id" label="操作">
+                  <template>
+                    <el-button size="mini">编辑</el-button>
+                    <el-button size="mini" type="danger">删除</el-button>
+                  </template>
+                </el-table-column>
               </el-table>
-            </template>
+            </div>
           </el-col>
-           
         </el-row>
-          <span slot="footer" class="dialog-footer">
-            <el-button type="danger" @click="dialogVisible = false">退 出</el-button>
-          </span>
-      </el-dialog>-->
-    </el-card>
-  </div>
+        <el-row :gutter="20">
+          <el-col :span="12" :offset="8">
+            <div>
+              <el-pagination background layout="prev, pager, next" :total="1000"></el-pagination>
+            </div>
+          </el-col>
+        </el-row>
+      </el-main>
+    </el-container>
+  </el-container>
 </template>
+<style>
+.el-table .warning-row {
+  background: oldlace;
+}
 
+.el-table .success-row {
+  background: #f0f9eb;
+}
+</style>
 <script>
-export default {
-  data() {
-    return {
-      dialogVisible: false,
-      po:{}
+//这里可以导入其他文件（比如：组件，工具js，第三方插件js，json文件，图片文件等等）
+//例如：import 《组件名称》 from '《组件路径》';
 
+export default {
+  //import引入的组件需要注入到对象中才能使用
+  components: {},
+  data() {
+    //这里存放数据
+    return {
+      name: "",
+      admin: "",
+      value1: "",
+      tableData: [
+        {
+          date: "2016-05-02",
+          name: "王小虎",
+          address: "上海市普陀区金沙江路 1518 弄"
+        },
+        {
+          date: "2016-05-04",
+          name: "王小虎",
+          address: "上海市普陀区金沙江路 1518 弄"
+        },
+        {
+          date: "2016-05-01",
+          name: "王小虎",
+          address: "上海市普陀区金沙江路 1518 弄"
+        },
+        {
+          date: "2016-05-03",
+          name: "王小虎",
+          address: "上海市普陀区金沙江路 1518 弄"
+        }
+      ]
     };
   },
+  //监听属性 类似于data概念
+  computed: {},
+  //监控data中的数据变化
+  watch: {},
+  //方法集合
   methods: {
-    loade(pageNum,pageSize){
-        let _test=this;
-        _test.$ajax
-        .get(`/stockapply/find/${pageNum}/${pageSize}`)
-        .then(resp=>{
-          _test.po=resp.data;
-         
-        })
-        .catch(e => {
-          alert(e);
-        });
-    },
-    nextpage(pageNum){
-      this.loade(pageNum,1);
-    },
-    prepage(pageNum){
-      this.loade(pageNum,1);
+    tableRowClassName({ row, rowIndex }) {
+      row;
+      if (rowIndex === 1) {
+        return "warning-row";
+      } else if (rowIndex === 3) {
+        return "success-row";
+      }
+      return "";
     }
   },
-  mounted(){
-      this.loade(1,1);
-  }
+  //生命周期 - 创建完成（可以访问当前this实例）
+  created() {},
+  //生命周期 - 挂载完成（可以访问DOM元素）
+  mounted() {},
+  beforeCreate() {}, //生命周期 - 创建之前
+  beforeMount() {}, //生命周期 - 挂载之前
+  beforeUpdate() {}, //生命周期 - 更新之前
+  updated() {}, //生命周期 - 更新之后
+  beforeDestroy() {}, //生命周期 - 销毁之前
+  destroyed() {}, //生命周期 - 销毁完成
+  activated() {} //如果页面有keep-alive缓存功能，这个函数会触发
 };
 </script>
+<style  scoped>
+/*@import url(); 引入公共css类*/
+</style>
 
-<style scoped>
-.row > * {
-  display: inline-block;
-  margin-right: 10px;
-}
-.row > .el-form-item * {
-  display: inline-block;
-}
-.el-form .el-form-item {
-  margin-right: 100px;
-}
-.el-form {
-  margin-left: 80px;
-  margin-top: 20px;
-}
-.el-input,
-.el-select,
-.el-date-picker {
-  width: 220px;
-}
-</style>  
+
+
+
+
+
+
+
+
+
 
